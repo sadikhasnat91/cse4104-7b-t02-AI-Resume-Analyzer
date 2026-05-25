@@ -1,11 +1,11 @@
-# 🤖 AI Based Resume Analyzer
+# AI Based Resume Analyzer
 
-## 📌 Project Overview
+## Project Overview
 AI Based Resume Analyzer is a system designed to help students and job seekers evaluate and improve their resumes using Artificial Intelligence. The application analyzes resumes, extracts skills, generates ATS-based scores, and provides personalized suggestions along with job recommendations.
 
 ---
 
-## ❗ Problem Statement
+## Problem Statement
 In today’s competitive job market, many students and job seekers struggle to evaluate the quality of their resumes. They often lack awareness of industry standards, required skills, and ATS optimization, which leads to poor shortlisting rates despite applying to multiple jobs.
 
 This issue is critical because a resume is the first step toward securing employment, and an ineffective one can limit opportunities, reduce confidence, and delay career growth—especially for fresh graduates who lack proper guidance.
@@ -14,7 +14,7 @@ Although several resume analysis tools exist, they are often limited. Many lack 
 
 ---
 
-## 🎯 Objectives
+## Objectives
 - To develop an AI-based system that can analyze resumes effectively  
 - To extract relevant skills and information from uploaded resumes  
 - To evaluate and generate a resume score based on industry standards (ATS score)  
@@ -25,20 +25,20 @@ Although several resume analysis tools exist, they are often limited. Many lack 
 
 ---
 
-## 🚀 Features
-- 🔐 User Authentication  
-- 📄 Resume Upload (PDF Support)  
-- 🤖 AI-Based Resume Analysis  
-- 🧠 Skill Extraction  
-- 📊 Resume Scoring (ATS Score)  
-- ⚠️ Missing Skills Identification  
-- 💡 Personalized Suggestions  
-- 💼 Job Recommendation System  
-- 📊 User-Friendly Dashboard  
+## Features
+- User Authentication  
+- Resume Upload (PDF Support)  
+- AI-Based Resume Analysis  
+- Skill Extraction  
+- Resume Scoring (ATS Score)  
+- Missing Skills Identification  
+- Personalized Suggestions  
+- Job Recommendation System  
+- User-Friendly Dashboard  
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 **Frontend:**  
 - Flutter (Cross-platform mobile app development)
@@ -61,9 +61,9 @@ Although several resume analysis tools exist, they are often limited. Many lack 
 
 ---
 
-## 📈 Expected Outcome
+## Expected Outcome
 The system will help users analyze and improve their resumes, identify missing skills, and receive job recommendations. Ultimately, it will increase users’ chances of securing job opportunities.
 
 ---
 
-## 📂 Project Structure (Initial)
+## Project Structure (Initial)
