@@ -72,11 +72,24 @@ class SignupView extends GetView<AuthController> {
                     SizedBox(
                       width: double.infinity,
                       height: 52,
-                      child: ElevatedButton(
-                        onPressed: controller.signup,
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 16),
+                      child: Obx(
+                        () => ElevatedButton(
+                          onPressed: controller.isLoading.value
+                              ? null
+                              : controller.signup,
+                          child: controller.isLoading.value
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const Text(
+                                  'Sign Up',
+                                  style: TextStyle(fontSize: 16),
+                                ),
                         ),
                       ),
                     ),

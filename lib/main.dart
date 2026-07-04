@@ -1,8 +1,24 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
+import 'app/services/config_service.dart';
+import 'app/services/supabase_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final configService = Get.put(ConfigService());
+
+  // ✅ Local Supabase credentials (for development)
+  configService.setSupabaseCredentials(
+    url: 'https://iyjnvtjblstpaovwhxdr.supabase.co',
+    anonKey: 'sb_publishable_oRTNqJBOzAXg7SMwVeYp0Q_eO3qZySn',
+  );
+
+  configService.printCurrentConfig();
+
+  await SupabaseService.initialize();
+
   runApp(const ResumeAnalyzerApp());
 }
 

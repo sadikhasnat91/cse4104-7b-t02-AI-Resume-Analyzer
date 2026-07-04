@@ -1,5 +1,5 @@
-﻿name: resume_analyzer
-description: "A new Flutter project."
+﻿name: ai_resume_analyzer
+description: "AI Resume Analyzer"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   get: ^4.6.5
+  supabase_flutter: ^2.8.3
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
-# resume_analyzer
+# AI Resume Analyzer
 
-A new Flutter project.
+A Flutter app for analyzing resumes with AI-powered insights.
 
 ## Getting Started
 

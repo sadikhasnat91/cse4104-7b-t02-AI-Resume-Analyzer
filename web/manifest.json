@@ -1,11 +1,11 @@
 {
-    "name": "resume_analyzer",
-    "short_name": "resume_analyzer",
+    "name": "AI Resume Analyzer",
+    "short_name": "AI Resume Analyzer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "AI Resume Analyzer",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
