@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:gotrue/gotrue.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config_service.dart';
 
@@ -12,6 +13,8 @@ class SupabaseService {
     defaultValue: '',
   );
 
+  static bool _initialized = false;
+
   static bool get isConfigured {
     final configService = ConfigService.to;
     final envUrl = _supabaseUrl.isNotEmpty ? _supabaseUrl : '';
@@ -24,7 +27,11 @@ class SupabaseService {
             configService.supabaseKey.value.isNotEmpty);
   }
 
-  static Future<void> initialize() async {
+  static bool get isInitialized => _initialized;
+
+  static GoTrueClient get auth => client.auth;
+
+  static Future<bool> initialize() async {
     final configService = ConfigService.to;
 
     // Priority: environment variables > config service
@@ -46,16 +53,27 @@ class SupabaseService {
         'Add credentials via: flutter run --dart-define=SUPABASE_URL=https://your-project.supabase.co --dart-define=SUPABASE_ANON_KEY=your-anon-key',
       );
       debugPrint('OR set in ConfigService.setSupabaseCredentials()');
-      return;
+      return false;
     }
 
     try {
       await Supabase.initialize(url: url, publishableKey: key);
+      _initialized = true;
       debugPrint('✓ Supabase initialized successfully');
-    } catch (e) {
+      return true;
+    } catch (e, stackTrace) {
       debugPrint('✗ Supabase initialization failed: $e');
+      debugPrint(stackTrace.toString());
+      return false;
     }
   }
 
-  static SupabaseClient get client => Supabase.instance.client;
+  static SupabaseClient get client {
+    if (!_initialized) {
+      throw StateError(
+        'Supabase has not been initialized. Call SupabaseService.initialize() first.',
+      );
+    }
+    return Supabase.instance.client;
+  }
 }

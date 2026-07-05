@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/config_service.dart';
 import 'app/services/supabase_service.dart';
+import 'app/widgets/responsive_builder.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,8 +12,14 @@ Future<void> main() async {
 
   // ✅ Local Supabase credentials (for development)
   configService.setSupabaseCredentials(
-    url: 'https://iyjnvtjblstpaovwhxdr.supabase.co',
-    anonKey: 'sb_publishable_oRTNqJBOzAXg7SMwVeYp0Q_eO3qZySn',
+    url: 'https://iyvnjtlbistpaovwhxdr.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml5dm5qdGxiaXN0cGFvdndoeGRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0MjczOTQsImV4cCI6MjA5NTAwMzM5NH0.HdRtDRxjGNdqEeATGMlpBTxG5e-ThXtIhWJdixIjYH8',
+  );
+
+  // Gemini API key can be provided during development with --dart-define
+  configService.setGeminiApiKey(
+    const String.fromEnvironment('GEMINI_API_KEY', defaultValue: ''),
   );
 
   configService.printCurrentConfig();
@@ -70,6 +77,11 @@ class ResumeAnalyzerApp extends StatelessWidget {
       ),
       initialRoute: '/login',
       getPages: AppPages.pages,
+      home: ResponsiveBuilder(
+        builder: (context, isDesktop, isTablet, isMobile) {
+          return SizedBox.expand(child: SizedBox.shrink());
+        },
+      ),
     );
   }
 }
