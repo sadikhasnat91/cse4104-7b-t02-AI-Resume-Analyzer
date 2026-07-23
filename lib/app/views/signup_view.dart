@@ -119,6 +119,8 @@ class SignupView extends GetView<AuthController> {
                                                   Responsive.responsiveFontSize(
                                                     16,
                                                   ),
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
                                             ),
                                           ),
                                   ),

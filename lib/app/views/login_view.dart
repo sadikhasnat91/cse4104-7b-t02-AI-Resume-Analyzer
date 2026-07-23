@@ -92,7 +92,11 @@ class LoginView extends GetView<AuthController> {
                                 )
                               : const Text(
                                   'Login',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
                                 ),
                         ),
                       ),

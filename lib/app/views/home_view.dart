@@ -83,6 +83,8 @@ class HomeView extends StatelessWidget {
                               'Upload Resume',
                               style: TextStyle(
                                 fontSize: Responsive.responsiveFontSize(16),
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
                               ),
                             ),
                           ),
