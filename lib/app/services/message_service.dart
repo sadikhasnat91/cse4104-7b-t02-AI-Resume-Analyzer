@@ -125,6 +125,38 @@ class MessageService {
     );
   }
 
+  /// Show confirmation dialog
+  static Future<bool?> showConfirmation({
+    required String title,
+    required String message,
+    String confirmButtonText = 'Confirm',
+    String cancelButtonText = 'Cancel',
+  }) async {
+    return Get.dialog<bool>(
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: Text(cancelButtonText),
+          ),
+          TextButton(
+            onPressed: () => Get.back(result: true),
+            child: Text(
+              confirmButtonText,
+              style: const TextStyle(color: Color(0xFFFF6B6B)),
+            ),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
+  }
+
   /// Show warning snackbar
   static void showWarningSnackbar({
     required String title,
