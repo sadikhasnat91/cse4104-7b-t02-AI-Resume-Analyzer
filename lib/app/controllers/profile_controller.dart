@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../services/supabase_service.dart';
 import '../routes/app_routes.dart';
 import '../services/message_service.dart';
@@ -322,15 +323,9 @@ class ProfileController extends GetxController {
           try {
             isLoading.value = true;
 
-            // Verify old password by attempting to sign in
-            await SupabaseService.auth.signInWithPassword(
-              email: email.value,
-              password: oldPwd,
-            );
-
-            // Update password
+            // Update password using Supabase
             await SupabaseService.auth.updateUser(
-              password: newPwd,
+              UserAttributes(password: newPwd),
             );
 
             isLoading.value = false;
