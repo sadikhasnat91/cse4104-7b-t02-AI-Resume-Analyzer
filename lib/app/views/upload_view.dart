@@ -10,7 +10,10 @@ class UploadView extends GetView<UploadController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(UploadController());
+    if (!Get.isRegistered<UploadController>()) {
+      Get.put(UploadController());
+    }
+
     return ResponsiveBuilder(
       builder: (context, isDesktop, isTablet, isMobile) {
         return Scaffold(

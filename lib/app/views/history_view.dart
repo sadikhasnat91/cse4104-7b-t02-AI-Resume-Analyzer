@@ -9,7 +9,9 @@ class HistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HistoryController controller = Get.put(HistoryController());
+    final HistoryController controller = Get.isRegistered<HistoryController>()
+        ? Get.find<HistoryController>()
+        : Get.put(HistoryController());
     return Scaffold(
       backgroundColor: const Color(0xFFE9F2F7),
       body: SafeArea(

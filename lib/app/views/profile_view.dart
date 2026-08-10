@@ -7,7 +7,9 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
+    if (!Get.isRegistered<ProfileController>()) {
+      Get.put(ProfileController());
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFE9F2F7),
       body: SafeArea(
@@ -40,7 +42,11 @@ class ProfileView extends GetView<ProfileController> {
                       const CircleAvatar(
                         radius: 32,
                         backgroundColor: Color(0xFF176D8D),
-                        child: Icon(Icons.person, size: 32, color: Colors.white),
+                        child: Icon(
+                          Icons.person,
+                          size: 32,
+                          color: Colors.white,
+                        ),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
@@ -222,11 +228,7 @@ class _ProfileOptionState extends State<_ProfileOption> {
                 ),
               ],
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-              color: Colors.black26,
-            ),
+            Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black26),
           ],
         ),
       ),

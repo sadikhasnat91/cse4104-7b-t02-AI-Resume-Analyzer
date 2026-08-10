@@ -11,6 +11,7 @@ class UploadController extends GetxController {
   final isLoading = false.obs;
   final selectedFile = Rxn<PlatformFile>();
   final fileName = ''.obs;
+  bool _isAnalyzing = false;
 
   final categories = <String>[
     'Software Engineering',
@@ -75,7 +76,10 @@ class UploadController extends GetxController {
 
   /// Analyze the selected resume
   Future<void> analyze() async {
-    // Validate file is selected
+    if (_isAnalyzing || isLoading.value) {
+      return;
+    }
+
     if (selectedFile.value == null) {
       await MessageService.showError(
         title: 'No File Selected',
@@ -85,9 +89,10 @@ class UploadController extends GetxController {
       return;
     }
 
-    try {
-      isLoading.value = true;
+    _isAnalyzing = true;
+    isLoading.value = true;
 
+    try {
       final fileText = await ResumeTextService.extractText(selectedFile.value!);
       if (fileText.trim().isEmpty) {
         throw StateError(
@@ -104,13 +109,15 @@ class UploadController extends GetxController {
 
       Get.toNamed(AppRoutes.analysis, arguments: analysisResult);
     } catch (e) {
+      final isQuota = GeminiService.isQuotaExceededError(e);
+
       await MessageService.showError(
-        title: 'Analysis Failed',
-        message: 'Error: ${e.toString()}',
-        showRetry: true,
-        onRetry: analyze,
+        title: isQuota ? 'Quota Exceeded' : 'Analysis Failed',
+        message: GeminiService.friendlyErrorMessage(e),
+        showRetry: false,
       );
     } finally {
+      _isAnalyzing = false;
       isLoading.value = false;
     }
   }

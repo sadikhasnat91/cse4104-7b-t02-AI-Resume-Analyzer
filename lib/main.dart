@@ -18,9 +18,9 @@ Future<void> main() async {
   );
 
   // Gemini API key can be provided during development with --dart-define
-  configService.setGeminiApiKey(
-    const String.fromEnvironment('GEMINI_API_KEY', defaultValue: ''),
-  );
+  // configService.setGeminiApiKey(
+  //   const String.fromEnvironment('GEMINI_API_KEY', defaultValue: ''),
+  // );
 
   configService.printCurrentConfig();
 

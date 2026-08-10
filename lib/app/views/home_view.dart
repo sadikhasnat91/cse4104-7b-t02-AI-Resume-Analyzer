@@ -14,7 +14,9 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dashboardController = Get.find<DashboardController>();
-    final historyController = Get.put(HistoryController());
+    final historyController = Get.isRegistered<HistoryController>()
+        ? Get.find<HistoryController>()
+        : Get.put(HistoryController());
     final user = SupabaseService.isConfigured
         ? SupabaseService.auth.currentUser
         : null;
@@ -31,17 +33,16 @@ class HomeView extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFEAF4FB),
-                  Color(0xFFF7FAFC),
-                ],
+                colors: [Color(0xFFEAF4FB), Color(0xFFF7FAFC)],
               ),
             ),
             child: SafeArea(
               child: Obx(() {
                 final resumes = historyController.resumes.toList();
                 final totalAnalyses = resumes.length;
-                final scores = resumes.map((item) => _parseScore(item.score)).toList();
+                final scores = resumes
+                    .map((item) => _parseScore(item.score))
+                    .toList();
                 final averageScore = scores.isEmpty
                     ? 0
                     : (scores.reduce((a, b) => a + b) / scores.length).round();
@@ -100,7 +101,9 @@ class HomeView extends StatelessWidget {
                               ),
                               _MetricData(
                                 label: 'Average score',
-                                value: totalAnalyses == 0 ? '--' : '$averageScore%',
+                                value: totalAnalyses == 0
+                                    ? '--'
+                                    : '$averageScore%',
                                 caption: totalAnalyses == 0
                                     ? 'No analysis yet'
                                     : _scoreBandLabel(averageScore),
@@ -137,17 +140,22 @@ class HomeView extends StatelessWidget {
                                       flex: 7,
                                       child: _RecentActivitySection(
                                         resumes: resumes,
-                                        onViewAll: () => dashboardController.changePage(2),
+                                        onViewAll: () =>
+                                            dashboardController.changePage(2),
                                       ),
                                     ),
-                                    SizedBox(width: Responsive.blockSizeHorizontal * 3),
+                                    SizedBox(
+                                      width: Responsive.blockSizeHorizontal * 3,
+                                    ),
                                     Expanded(
                                       flex: 5,
                                       child: _FocusPanel(
                                         message: focusMessage,
                                         totalAnalyses: totalAnalyses,
-                                        onUpload: () => dashboardController.changePage(1),
-                                        onProfile: () => dashboardController.changePage(3),
+                                        onUpload: () =>
+                                            dashboardController.changePage(1),
+                                        onProfile: () =>
+                                            dashboardController.changePage(3),
                                       ),
                                     ),
                                   ],
@@ -156,14 +164,19 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     _RecentActivitySection(
                                       resumes: resumes,
-                                      onViewAll: () => dashboardController.changePage(2),
+                                      onViewAll: () =>
+                                          dashboardController.changePage(2),
                                     ),
-                                    SizedBox(height: Responsive.blockSizeVertical * 2),
+                                    SizedBox(
+                                      height: Responsive.blockSizeVertical * 2,
+                                    ),
                                     _FocusPanel(
                                       message: focusMessage,
                                       totalAnalyses: totalAnalyses,
-                                      onUpload: () => dashboardController.changePage(1),
-                                      onProfile: () => dashboardController.changePage(3),
+                                      onUpload: () =>
+                                          dashboardController.changePage(1),
+                                      onProfile: () =>
+                                          dashboardController.changePage(3),
                                     ),
                                   ],
                                 ),
@@ -381,11 +394,7 @@ class _HeroSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF12384C),
-            Color(0xFF176D8D),
-            Color(0xFF2C8DA4),
-          ],
+          colors: [Color(0xFF12384C), Color(0xFF176D8D), Color(0xFF2C8DA4)],
         ),
         boxShadow: const [
           BoxShadow(
@@ -802,11 +811,7 @@ class _MetricCard extends StatelessWidget {
               color: data.color.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(
-              data.icon,
-              color: data.color,
-              size: compact ? 18 : 22,
-            ),
+            child: Icon(data.icon, color: data.color, size: compact ? 18 : 22),
           ),
           SizedBox(height: compact ? 12 : 16),
           Text(
@@ -845,7 +850,10 @@ class _MetricCard extends StatelessWidget {
 }
 
 class _RecentActivitySection extends StatelessWidget {
-  const _RecentActivitySection({required this.resumes, required this.onViewAll});
+  const _RecentActivitySection({
+    required this.resumes,
+    required this.onViewAll,
+  });
 
   final List<ResumeItem> resumes;
   final VoidCallback onViewAll;
@@ -921,10 +929,8 @@ class _RecentActivitySection extends StatelessWidget {
               children: resumes
                   .take(3)
                   .map(
-                    (resume) => _RecentResumeCard(
-                      resume: resume,
-                      onTap: onViewAll,
-                    ),
+                    (resume) =>
+                        _RecentResumeCard(resume: resume, onTap: onViewAll),
                   )
                   .toList(),
             ),
@@ -999,7 +1005,10 @@ class _RecentResumeCard extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: scoreColor.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(999),
@@ -1142,7 +1151,9 @@ class _FocusPanel extends StatelessWidget {
                   onPressed: onProfile,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    side: BorderSide(color: Colors.white.withValues(alpha: 0.32)),
+                    side: BorderSide(
+                      color: Colors.white.withValues(alpha: 0.32),
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),

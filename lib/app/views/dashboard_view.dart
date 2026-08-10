@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
+import '../controllers/upload_controller.dart';
 import 'home_view.dart';
 import 'upload_view.dart';
 import 'history_view.dart';
@@ -11,7 +12,13 @@ class DashboardView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(DashboardController());
+    if (!Get.isRegistered<DashboardController>()) {
+      Get.put(DashboardController());
+    }
+    if (!Get.isRegistered<UploadController>()) {
+      Get.put(UploadController());
+    }
+
     final pages = const [
       HomeView(),
       UploadView(),

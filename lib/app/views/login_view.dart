@@ -8,7 +8,9 @@ class LoginView extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(AuthController());
+    if (!Get.isRegistered<AuthController>()) {
+      Get.put(AuthController());
+    }
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
